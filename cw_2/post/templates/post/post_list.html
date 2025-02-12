@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Posts</title>
+</head>
+<body>
+    <h1>All Posts</h1>
+    <ul>
+        {% for post in posts %}
+            <li>{{ post.title }} by {{ post.author }} (<a href="{% url 'get_post' post.id %}">View</a>)</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_post' %}">Create New Post</a>
+</body>
+</html>
