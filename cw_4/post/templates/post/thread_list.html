@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Threads</h1>
+    <ul>
+        {% for thread in threads %}
+            <li>
+                <a href="{% url 'thread_detail' thread.id %}">{{ thread.name }}</a>
+                <a href="{% url 'thread_edit' thread.id %}">Edit</a>
+                <a href="{% url 'thread_delete' thread.id %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
