@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>{{ todo.title }}</h2>
+    <p><strong>Описание:</strong> {{ todo.description }}</p>
+    <p><strong>Дата выполнения:</strong> {{ todo.due_date }}</p>
+    <p><strong>Статус:</strong> {% if todo.status %}✅ Выполнено {% else %}❌ Не выполнено {% endif %}</p>
+
+    <a href="{% url 'todo_list' %}" class="btn btn-secondary">🔙 Назад</a>
+</div>
+{% endblock %}
