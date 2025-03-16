@@ -1,18 +1,13 @@
-{% extends "base.html" %}
+{% extends "note/base.html" %}
 
 {% block content %}
-    <h1 class="mb-4">Список заметок</h1>
-    {% for note in notes %}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title"><a href="{% url 'note_detail' note.id %}">{{ note.title }}</a></h5>
-                <p class="card-text">{{ note.content|truncatewords:20 }}</p>
-                <a href="{% url 'note_update' note.id %}" class="btn btn-warning btn-sm">Редактировать</a>
-                <form action="{% url 'note_delete' note.id %}" method="post" class="d-inline">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-                </form>
-            </div>
-        </div>
-    {% endfor %}
+    <a href="{% url 'note_create' %}" class="btn btn-success mb-3">Добавить заметку</a>
+    <ul class="list-group">
+        {% for note in notes %}
+            <li class="list-group-item">
+                <a href="{% url 'note_detail' note.pk %}">{{ note.title }}</a>
+                <span class="text-muted">({{ note.created_at|date:"d M Y" }})</span>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
