@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список постов</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        table {
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .btn-details { background: blue; color: white; }
+        .btn-edit { background: orange; color: white; }
+        .btn-delete { background: red; color: white; }
+    </style>
+</head>
+<body>
+    <h2>Список постов</h2>
+    <table>
+        <tr>
+            <th>Название</th>
+            <th>Действия</th>
+        </tr>
+        {% for post in posts %}
+        <tr>
+            <td>{{ post.title }}</td>
+            <td>
+                <a href="{% url 'post_detail' post.id %}" class="btn btn-details">Details</a>
+                <a href="{% url 'post_edit' post.id %}" class="btn btn-edit">Edit</a>
+                <form action="{% url 'post_delete' post.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{% url 'post_create' %}" class="btn btn-create">Добавить новый пост</a>
+</body>
+</html>

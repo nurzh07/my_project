@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>📌 Todo Lists</h1>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTodoListModal">
+            ➕ New List
+        </button>
+    </div>
+
+    <div class="row mt-3">
+        {% for todo_list in todo_lists %}
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ todo_list.title }}</h5>
+                        <p class="card-text text-muted">{{ todo_list.description }}</p>
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'todo_list_details' todo_list.id %}" class="btn btn-sm btn-primary">View</a>
+                            <div>
+                                <a href="{% url 'edit_todo_list' todo_list.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="{% url 'delete_todo_list' todo_list.id %}" class="btn btn-sm btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-muted">No todo lists available. Create one now!</p>
+        {% endfor %}
+    </div>
+
+    <!-- Todo List құру үшін модал -->
+    <div class="modal fade" id="createTodoListModal" tabindex="-1" aria-labelledby="createTodoListLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="createTodoListLabel">Create Todo List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{% url 'create_todo_list' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text" name="title" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea name="description" class="form-control"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

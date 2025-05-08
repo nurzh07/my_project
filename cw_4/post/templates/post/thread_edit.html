@@ -1,0 +1,6 @@
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="name" value="{{ thread.name }}">
+    <textarea name="description">{{ thread.description }}</textarea>
+    <button type="submit">Сохранить</button>
+</form>

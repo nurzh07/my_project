@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>✏️ Редактировать задачу</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">💾 Сохранить</button>
+    </form>
+    <a href="{% url 'todo_list' %}" class="btn btn-secondary">🔙 Назад</a>
+</div>
+{% endblock %}

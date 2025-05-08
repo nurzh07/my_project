@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Ваши задачи</h2>
+    <a href="{% url 'create_todo' %}" class="btn btn-primary">Создать задачу</a>
+    <ul>
+        {% for todo in todos %}
+            <li>{{ todo.title }} - <a href="{% url 'todo_detail' todo.id %}">Подробнее</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
